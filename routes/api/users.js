@@ -47,6 +47,8 @@ router.post(
         d: 'mm'
       });
 
+      // If user doesn't already exist, creates new user
+
       user = new User({
         name,
         email,

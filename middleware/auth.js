@@ -14,6 +14,7 @@ module.exports = function(req, res, next) {
   try {
     // jwt.verify returns the decoded payload, which is why decoded.user is
     // essentially "payload.user", containing the {user: {id: user.id}} object
+    // which is the user id from the users collection
     const decoded = jwt.verify(token, config.get('jwtSecret'));
 
     req.user = decoded.user;

@@ -52,6 +52,8 @@ router.post(
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
+      // bcrypt.compare is comparing the plain text password entered to the hashed and salted password stored
+      // in the DB
 
       if (!isMatch) {
         return res

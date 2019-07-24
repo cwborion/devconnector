@@ -11,9 +11,11 @@ const User = require('../../models/User');
 // @access  Private
 router.get('/me', auth, async (req, res) => {
   try {
-    // 1. sets the user field of the Profile model to the user id accessed from the
+    // 1. checks the user field of the Profile model to the user id accessed from the
     // payload in the token accessed in the auth from the middleware (second argument of above function)
-    // 2. populate()'s first argument is the collection you want to populate a given field/document with
+    // 2. populate()'s first argument is the property you want to populate a given field/document with
+    // (in this case, the user field in the profile object) AND the ref that is assigned in the model itself
+    // is what tells the query where to get the information that it is populating into document being populated
     // 3. the second agument is optional and can be used to specify which fields from the referenced
     // collection you would like to populate into the collection being populated
     const profile = await Profile.findOne({ user: req.user.id }).populate(
@@ -82,7 +84,7 @@ router.post(
       profileFields.skills = skills.split(',').map(skill => skill.trim());
     }
 
-    // Build social array
+    // Build social object
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;
     if (twitter) profileFields.social.twitter = twitter;
@@ -90,6 +92,7 @@ router.post(
     if (linkedin) profileFields.social.linkedin = linkedin;
     if (instagram) profileFields.social.instagram = instagram;
 
+    // Update
     try {
       let profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
