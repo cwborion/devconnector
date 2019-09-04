@@ -17,7 +17,7 @@ const AddExperience = ({ addExperience, history }) => {
 
   // toDateDisabled is initially set to false. Same with current.
   // The onChange property in the 'current' input will change the 'current' value back and forth from true to false
-  // It will do the same for toggleDisabled, respectively to their intitial fals values to begin with
+  // It will do the same for toggleDisabled, respectively to their intitial false values to begin with
   // Following, the 'to' input's disabled property will be determined by the result of the onChange function fired
   // in the 'current' input
   const [toDateDisabled, toggleDisabled] = useState(false);
@@ -116,9 +116,9 @@ const AddExperience = ({ addExperience, history }) => {
           ></textarea>
         </div>
         <input type='submit' className='btn btn-primary my-1' />
-        <a className='btn btn-light my-1' to='/dashboard'>
+        <Link className='btn btn-light my-1' to='/dashboard'>
           Go Back
-        </a>
+        </Link>
       </form>
     </Fragment>
   );
@@ -131,4 +131,4 @@ AddExperience.propTypes = {
 export default connect(
   null,
   { addExperience }
-)(AddExperience);
+)(withRouter(AddExperience));
